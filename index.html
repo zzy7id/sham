@@ -3,99 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DANA Login</title>
+    <title>Page 1</title>
     <style>
         body {
             margin: 0;
-            background-color: #1C85C7;
             font-family: Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
-        .container {
-            max-width: 380px;
-            margin: auto;
+        .page1 {
+            background-color: #1C85C7;
+            color: white;
+            text-align: center;
             padding: 20px;
-            position: relative;
         }
-        .logo {
-            display: block;
-            margin: 0 auto 20px;
-            // Add path to logo image 
-            content: url('path/to/logo.png');
+        .footer {
+            margin-top: 20px;
+            font-size: 0.8em;
         }
         .country-selector {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
+            display: inline-block;
+            margin-top: 10px;
         }
-        .country-code {
-            margin-right: 10px;
-        }
-        .phone-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .continue-button {
-            background-color: #FFA500;
-            color: white;
-            padding: 10px;
+        .btn {
+            background-color: white;
+            color: #1C85C7;
             border: none;
-            border-radius: 5px;
+            padding: 10px 20px;
             cursor: pointer;
-            width: 100%;
-            font-size: 16px;
+            font-size: 1em;
+            margin-top: 15px;
         }
-        .pin-entry {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
+        .hidden {
+            display: none;
+        }
+        .circles {
+            display: inline-block;
+            margin-top: 10px;
         }
         .circle {
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background-color: white;
-            border: 1px solid #ccc;
+            border: 2px solid white;
+            display: inline-block;
+            margin: 5px;
+            background: gray;
         }
-        .header {
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 10px;
+        .circle.filled {
+            background: blue;
         }
-        .link {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #1C85C7;
-            text-decoration: none;
-        }
-        .error {
-            color: red;
+        @media (max-width: 380px) {
+            .container {
+                max-width: 100%;
+                padding: 5px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="path/to/logo.png" alt="Logo" class="logo">
+    <div class="container page1">
+        <img src="/path/to/dana-logo.png" alt="DANA Logo"/>
+        <h2>Masukkan nomor HP kamu untuk lanjut</h2>
         <div class="country-selector">
-            <span class="country-code">+62 <img src="path/to/indonesia-flag.png" alt="Flag" style="width: 20px; height: 14px;"></span>
-            <input type="text" placeholder="Phone Number" class="phone-input" value="811-1234-5678">
+            <span>🇮🇩 +62 </span>
+            <input type="text" placeholder="811-1234-5678"/>
         </div>
-        <button class="continue-button">LANJUTKAN</button>
-        <div class="pin-entry">
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
+        <button class="btn" onclick="goToPage2()">LANJUTKAN</button>
+        <div class="footer">
+            <p>About terms...</p>
         </div>
-        <h1 class="header">Masuk</h1>
-        <a href="#" class="link">Lupa PIN?</a>
-        <div class="error">Error: Invalid input!</div>
     </div>
+    <div class="container page2 hidden">
+        <header style="background-color: #1C85C7; padding: 10px; display: flex; align-items: center;">
+            <button onclick="goBack()">←</button>
+            <h1>Masuk</h1>
+        </header>
+        <div style="background: white; padding: 20px; text-align: center;">
+            <h2>Masukkan PIN</h2>
+            <div class="circles">
+                <div class="circle" id="circle1"></div>
+                <div class="circle" id="circle2"></div>
+                <div class="circle" id="circle3"></div>
+                <div class="circle" id="circle4"></div>
+                <div class="circle" id="circle5"></div>
+                <div class="circle" id="circle6"></div>
+            </div>
+            <a href="#" onclick="forgotPin()">Lupa PIN?</a>
+            <input type="password" class="hidden" id="pinInput" maxlength="6" oninput="updateCircles()"/>
+        </div>
+    </div>
+    <script>
+        function goToPage2() {
+            document.querySelector('.page1').classList.add('hidden');
+            document.querySelector('.page2').classList.remove('hidden');
+        }
+        function goBack() {
+            document.querySelector('.page2').classList.add('hidden');
+            document.querySelector('.page1').classList.remove('hidden');
+        }
+        function updateCircles() {
+            const input = document.getElementById('pinInput');
+            const circles = document.querySelectorAll('.circle');
+            circles.forEach((circle, index) => {
+                circle.classList.toggle('filled', index < input.value.length);
+            });
+        }
+        function forgotPin() {
+            alert('Forgot PIN functionality');
+        }
+    </script>
 </body>
 </html>
