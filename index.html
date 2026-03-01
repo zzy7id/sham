@@ -3,116 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DANA Redesign</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        .page1 { 
-            background-color: #1C85C7;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            color: white;
-        }
-        .logo {
-            margin-bottom: 20px;
-        }
-        .input-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 400px;
-            margin: 20px 0;
-        }
-        .input-field {
-            flex: 1;
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid white;
-            border-radius: 5px;
-            background-color: white;
-            color: #1C85C7;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-        }
-        .button {
-            background-color: white;
-            color: #1C85C7;
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .page2 {
-            display: none;
-            padding: 20px;
-            background-color: white;
-        }
-        .header {
-            background-color: #1C85C7;
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            color: white;
-        }
-        .back-arrow {
-            margin-right: 10px;
-        }
-        .indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: gray;
-            margin: 5px;
-        }
-        .link {
-            color: #1C85C7;
-            text-decoration: none;
-        }
-    </style>
+    <title>DANA Login Interface</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="page1">
-        <img src="path_to_dana_logo" class="logo" alt="DANA Logo">
-        <div class="instruction">Masukkan nomor HP kamu untuk lanjut</div>
-        <div class="input-container">
-            <input type="text" class="input-field" placeholder="Negara (+62)" />
-            <input type="text" class="input-field" placeholder="811-1234-5678" />
+    <div class="container">
+        <div class="phone-input">
+            <h2>Phone Number</h2>
+            <input type="tel" id="phone" placeholder="Enter your phone number">
+            <button id="next">Next</button>
+            <div id="error-message" class="hidden"></div>
         </div>
-        <div class="footer">Terms and conditions</div>
-        <button class="button">LANJUTKAN</button>
+
+        <div class="pin-input hidden">
+            <h2>Enter PIN</h2>
+            <div id="pin-circles"></div>
+            <input type="text" id="pin" maxlength="4" placeholder="0000">
+            <button id="submit">Submit</button>
+            <div id="loading" class="hidden">Loading...</div>
+            <div id="error-message-pin" class="hidden"></div>
+        </div>
     </div>
-    <div class="page2">
-        <div class="header">
-            <span class="back-arrow">←</span>
-            <h1>Masuk</h1>
-        </div>
-        <div>Masukkan PIN</div>
-        <div>
-            <span class="indicator"></span>
-            <span class="indicator"></span>
-            <span class="indicator"></span>
-            <span class="indicator"></span>
-            <span class="indicator"></span>
-            <span class="indicator"></span>
-        </div>
-        <a href="#" class="link">LUPA PIN?</a>
-    </div>
-    <script>
-        // Add functionality to switch between pages
-        document.querySelector('.button').addEventListener('click', function() {
-            document.querySelector('.page1').style.display = 'none';
-            document.querySelector('.page2').style.display = 'block';
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+}
+h2 {
+    color: #1C85C7;
+} 
+input[type="tel"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    background-color: #1C85C7;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+}
+button:hover {
+    background-color: #1677a0;
+}
+.hidden {
+    display: none;
+}
+#error-message, #error-message-pin {
+    color: red;
+}
+#pin-circles {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+</style>
+
+<script>
+document.getElementById('next').addEventListener('click', function() {
+    const phoneInput = document.getElementById('phone').value;
+    if (validatePhone(phoneInput)) {
+        document.querySelector('.phone-input').classList.add('hidden');
+        document.querySelector('.pin-input').classList.remove('hidden');
+    } else {
+        showError('Please enter a valid phone number.');
+    }
+});
+
+document.getElementById('submit').addEventListener('click', function() {
+    const pinInput = document.getElementById('pin').value;
+    // Pin submission logic here
+});
+
+function validatePhone(phone) {
+    // Phone validation logic here
+}
+
+function showError(message) {
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.innerText = message;
+    errorMessage.classList.remove('hidden');
+}
+
+// Additional JavaScript functionality goes here
+</script>
