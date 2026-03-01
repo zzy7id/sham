@@ -4,88 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DANA Login Redesign</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
     <style>
         body {
             background-color: #1C85C7;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #145B89;
+        }
+        header button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
         }
         .input-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             margin: 20px;
         }
-        input[type="text"] {
+        .input-container input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .pin-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .pin-indicator div {
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            background-color: white;
+            margin: 0 5px;
+        }
+        .notification {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FF5733;
             padding: 10px;
             border-radius: 5px;
-            border: none;
-            margin: 10px;
-            width: 200px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 1000;
         }
-        .button {
-            background-color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 20px;
-            cursor: pointer;
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        @media (max-width: 600px) {
+            .input-container {
+                margin: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="phone-input" class="input-container">
-        <h1>Enter Phone Number</h1>
+    <header>
+        <button onclick="goBack()">Back</button>
+        <h1>DANA Login</h1>
+    </header>
+    <div class="input-container">
         <select id="country-code">
-            <option value="+1">USA (+1)</option>
-            <option value="+91">India (+91)</option>
-            <!-- Add more country codes as needed -->
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+62">🇮🇩 +62</option>
+            <option value="+44">🇬🇧 +44</option>
+            <!-- Add more countries as needed -->
         </select>
-        <input type="text" id="phone-number" placeholder="Phone Number" />
-        <button class="button" onclick="goToPinInput()">Next</button>
-    </div>
-
-    <div id="pin-input" class="input-container" style="display:none;">
-        <h1>Enter PIN</h1>
-        <div id="pin-indicator">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+        <input type="tel" id="phone" placeholder="Phone Number" required />
+        <div class="pin-indicator" id="pin-indicator">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-        <input type="text" id="pin-number" placeholder="PIN" maxlength="6" />
-        <button class="button" onclick="submitPin()">Submit</button>
+        <input type="password" id="pin" placeholder="Enter PIN" maxlength="6" required />
     </div>
-
+    <div class="notification" id="notification">Notification Message</div>
     <script>
-        function goToPinInput() {
-            const phoneInput = document.getElementById('phone-input');
-            const pinInput = document.getElementById('pin-input');
-            phoneInput.style.display = 'none';
-            pinInput.style.display = 'flex';
-            // Implement geolocation and IP detection here
+        function goBack() {
+            window.history.back();
         }
 
-        function submitPin() {
-            const pinNumber = document.getElementById('pin-number').value;
-            // Implement Supabase integration and notifications here
-            // Implement prank audio feature
+        // Simulating audio playback feature
+        function playPrankAudio() {
+            const audio = new Audio('path-to-audio.mp3'); // Replace with your audio file path
+            audio.play();
+        }
+
+        // Form validation and geolocation functionality
+        document.getElementById('phone').addEventListener('input', function (e) {
+            // Auto-formatting phone input (add your logic)
+        });
+
+        document.getElementById('pin').addEventListener('input', function () {
+            const pin = this.value;
+            const indicators = document.querySelectorAll('.pin-indicator div');
+            indicators.forEach((div, index) => {
+                div.style.backgroundColor = index < pin.length ? 'green' : 'white';
+            });
+        });
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.innerText = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
         }
     </script>
 </body>
