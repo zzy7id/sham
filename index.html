@@ -4,34 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DANA Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            background-color: #1C85C7;
+            font-family: Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .container {
+            max-width: 380px;
+            margin: auto;
+            padding: 20px;
+            position: relative;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            // Add path to logo image 
+            content: url('path/to/logo.png');
+        }
+        .country-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .country-code {
+            margin-right: 10px;
+        }
+        .phone-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .continue-button {
+            background-color: #FFA500;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        .pin-entry {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            border: 1px solid #ccc;
+        }
+        .header {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #1C85C7;
+            text-decoration: none;
+        }
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>DANA Login</h1>
-        <div id="phone-entry" class="form-section">
-            <h2>Enter Phone Number</h2>
-            <form>
-                <input type="tel" placeholder="Phone Number" required>
-                <button type="submit">Next</button>
-            </form>
+        <img src="path/to/logo.png" alt="Logo" class="logo">
+        <div class="country-selector">
+            <span class="country-code">+62 <img src="path/to/indonesia-flag.png" alt="Flag" style="width: 20px; height: 14px;"></span>
+            <input type="text" placeholder="Phone Number" class="phone-input" value="811-1234-5678">
         </div>
-        <div id="pin-entry" class="form-section" style="display:none;">
-            <h2>Enter PIN</h2>
-            <form>
-                <input type="password" placeholder="PIN" required>
-                <button type="submit">Login</button>
-            </form>
+        <button class="continue-button">LANJUTKAN</button>
+        <div class="pin-entry">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
         </div>
+        <h1 class="header">Masuk</h1>
+        <a href="#" class="link">Lupa PIN?</a>
+        <div class="error">Error: Invalid input!</div>
     </div>
-    <script>
-        document.querySelector('form').onsubmit = function(event) {
-            event.preventDefault();
-            const phoneSection = document.getElementById('phone-entry');
-            const pinSection = document.getElementById('pin-entry');
-            phoneSection.style.display = 'none';
-            pinSection.style.display = 'block';
-        };
-    </script>
 </body>
 </html>
